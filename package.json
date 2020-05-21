@@ -1,0 +1,19 @@
+{
+  "name": "expresslist",
+  "version": "1.0.0",
+  "description": "A simple yet dynamic To-Do list now hosted on ExpressJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "list"
+  ],
+  "author": "Akash95",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15"
+  }
+}
