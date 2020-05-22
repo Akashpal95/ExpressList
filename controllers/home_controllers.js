@@ -14,17 +14,19 @@ module.exports.home = function(req, res){
             return;
         }
         if(req.query['mode'] == 'light'){
-            console.log('Enter lightmode 1');
+            console.log('Enter lightmode');
             return res.render('home', {
                 tasks_list :tasks,
-                colors:color_pallete
+                colors:color_pallete,
+                mode:'light'
         });
         }
         else{
             console.log('Enter DarkMode');
         return res.render('home', {
                 tasks_list :tasks,
-                colors:color_pallete
+                colors:color_pallete,
+                mode:''
         });
     }
     });
