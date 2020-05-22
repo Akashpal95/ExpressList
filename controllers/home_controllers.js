@@ -14,7 +14,7 @@ module.exports.home = function(req, res){
             return;
         }
         if(req.query['mode'] == 'light'){
-            console.log('ENter lightmode');
+            console.log('Enter lightmode');
             return res.render('home', {
                 tasks_list :tasks,
                 colors:color_pallete
