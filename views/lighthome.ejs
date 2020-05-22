@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TODO-APP</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/lighthome.css">
+</head>
+<body>
+
+    <main>
+        <div class="header">
+            <h1>TODO Ap</h1>
+        </div>
+        <form action="/action-task" method="POST">
+        <div class="add-task-container">
+            <p>DESCRIPTION</p>
+            <input id="task-description" type="text" name="task" placeholder="What do you need to do?" >    
+        </div>
+        <div class = "add-details-container">
+            <div class ="add-category-container">
+                <p>CATEGORY</p>
+                <select name="category" id="category">
+                        <option value="work" selected>Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="school">School</option>
+                        <option value="others">Others</option>
+                </select>
+            </div>
+            <div class="add-duedate-container">
+                <p>DUE DATE</p>
+                <input type="date" name="duedate" id="duedate">
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="add-button" name="action-button" type="submit" value="add">
+                    <i class="fas fa-plus"></i>
+                    <p>ADD TASK</p>
+            </button>
+            <button id="delete-button" name="action-button" value="delete">
+                    <i class="fas fa-trash-alt"></i>
+                    <p>DELETE TASKS</p>
+            </button>
+        </div>
+    
+        <div class="task-container" >
+            <%for(let task of tasks_list){ %>
+            <div class="task-card">
+                <input type="checkbox" id="task_select" name="task-select" value="<%= task._id%>">
+                <div class="task-wrapper">
+                    <p><%= task.task%></p>
+                    <div class="duedate-container">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p><%= task.duedate%></p>
+                    </div>
+                </div>
+                <div class="category-container" style="background-color:<%= colors[task.category]%>;">
+                    <p><%=task.category%></p>
+                </div>
+            </div>
+            <%}%>
+        
+            <!-- <div class="task-card">
+                <input type="checkbox" id="task1" name="task1" value="selected">
+                <div class="task-wrapper">
+                    <p>Pick up groceries</p>
+                    <div class="duedate-container">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>3rd May, 2020</p>
+                    </div>
+                </div>
+                <div class="category-container">
+                    <p>Work</p>
+                </div>
+            </div> -->
+        </div>
+        <div class="footer">
+                <label for="btn1" class="switch-box">
+                        <input type="checkbox" id="btn1" name="btn1" >
+                        <div class="switch">
+                        </div>
+                </label>
+        </div>
+    </form>
+    </main>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="/js/home.js"></script>
+</body>
+</html>
