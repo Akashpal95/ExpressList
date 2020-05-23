@@ -1,5 +1,6 @@
 const db = require('../config/mongoose');
 const Tasks = require('../models/tasks');
+// var mode = 'light'
 const color_pallete = {
     'work':'#424d8a',
     'school':'#13a978',
@@ -7,28 +8,20 @@ const color_pallete = {
     'others' :'#5a5c65'
 };
 module.exports.home = function(req, res){
-    console.log(req.query);
+    // console.log(req.query);
     Tasks.find({}, function(err, tasks){
         if(err){
             console.log('error in fetching contacts from db');
             return;
         }
-        if(req.query['mode'] == 'light'){
-            console.log('Enter lightmode');
-            return res.render('home', {
-                tasks_list :tasks,
-                colors:color_pallete,
-                mode:'light'
-        });
-        }
-        else{
-            console.log('Enter DarkMode');
+            // console.log('Enter DarkMode');
+            // console.log(mode);
         return res.render('home', {
                 tasks_list :tasks,
                 colors:color_pallete,
-                mode:''
+                // mode:mode
         });
-    }
+
     });
 }
 
@@ -50,6 +43,14 @@ module.exports.actionTask = function(req, res){
     }
     
 }
+
+// module.exports.changeMode = function(req, res){
+    
+//     mode = req.query['mode'];
+//     // console.log(mode);
+//     return res.redirect('back');
+// }
+
 
 createTask = function(req, res){
     var duedate = new Date(req.body.duedate);
