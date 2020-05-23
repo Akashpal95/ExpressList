@@ -8,6 +8,7 @@ const color_pallete = {
   'personal':'#fa744f',
   'others' :'#5a5c65'
 };
+//Function to check whether in dark mode or light mode and style accordingly.
 function myFunction() {
   console.log('Toggle Status:')
   console.log(toggle.checked);
@@ -54,6 +55,7 @@ function myFunction() {
 
     
 }
+//Event listener added on dark mode toggler
 toggle.addEventListener('click', function(){
   if(mode == 'dark')
     mode = 'light';
@@ -62,6 +64,7 @@ toggle.addEventListener('click', function(){
     // console.log(to)
     myFunction();
 });
+//Check mode selected first time window loads
 window.addEventListener('load', function(){
   if(mode == 'dark')
     toggle.checked = true;
@@ -73,7 +76,7 @@ window.addEventListener('load', function(){
 // addButton.addEventListener('click', myFunction);
 // deleteButton.addEventListener('click', myFunction);
 
-
+//To check any new task like add /delete and made ajax call accordingly
 let newTaskAddition=function()
 {
   // console.log($("#add-form").serialize());
@@ -104,12 +107,30 @@ let newTaskAddition=function()
           }
           else if(data.action=='delete'){
             // var parent = $('.task-container');
-            // console.log(parent[0]);  
+            // console.log(parent[0]); 
+            var cards = []; 
             for(eachId of data.data){
               let child = $(`#${eachId}`);
-              console.log(child[0]);
-              child[0].parentElement.removeChild(child[0]);
+              // console.log(child[0]);
+              // child[0].parentElement.removeChild(child[0]);
+              cards.push(child[0]);
             }
+            // let cards = document.getElementsByClassName('Completed');
+            let parent = cards[0].parentElement;
+            let length = cards.length;
+            let count=length-1;
+            intervalID = setInterval(function(){
+                cards[count].classList.add('delete-card');
+                // task_count--;
+                setTimeout(function(){
+                    this.parentNode.removeChild(this); 
+                    updateTaskCount();
+              }.bind(cards[count]),500 )
+                count--;
+                if(count<0){
+                    clearInterval(intervalID);
+                }
+            }, 200);
           }else{
             console.log('error in data action');
           }

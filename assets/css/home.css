@@ -14,6 +14,8 @@ main{
     /* padding:20px; */
     border-radius:2px;
     box-shadow:17px 16px 20px -10px #1b2027;
+    overflow:hidden;
+    transition: all 2s ease-in-out;
 }
 i{
     margin:5px;
@@ -23,11 +25,11 @@ i{
     padding:20px;
     padding-bottom: 5px;
     text-align: center; 
-    border-bottom:1px solid lightgrey;
+    border-bottom:1px solid gray;
 }
 .add-task-container{
     padding:10px;
-    border-bottom:1px solid lightgrey;
+    border-bottom:1px solid gray;
 }
 .add-details-container{
     display:flex;
@@ -36,13 +38,13 @@ i{
 .add-category-container{
     width:100%;
     padding:10px;
-    border-bottom:1px solid lightgrey;
+    border-bottom:1px solid gray;
 }
 .add-duedate-container{
     width:100%;
     padding:10px;
-    border-left:1px solid lightgrey;
-    border-bottom:1px solid lightgrey;
+    border-left:1px solid gray;
+    border-bottom:1px solid gray;
 }
 
 /*Styling all input elements*/
@@ -69,7 +71,7 @@ input::-webkit-outer-spin-button{
 .button-container{
     display:flex;
     justify-content: center;
-    /* border-bottom:1px solid lightgrey; */
+    /* border-bottom:1px solid gray; */
 }
 
 
@@ -123,11 +125,16 @@ button i{
 }
 .task-card{
     padding:12px;
-    border-top:1px solid lightgrey;
+    border-top:1px solid gray;
     display:flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom:1px solid lightgray;
+    border-bottom:1px solid gray;
+    transition:transform 0.5s ease-out;
+}
+.delete-card{
+    border:1px solid gray;
+    transform:translateX(100%);
 }
 .duedate-container{
     display:flex;
@@ -144,6 +151,7 @@ button i{
     /* background-color: #282b3d; */
     /* background-color: #29c7ac; */
     border-radius:5px;
+    transition: all 2s ease-in-out;
     
 }
 .category-container p{
@@ -165,7 +173,7 @@ button i{
 	position: absolute;
 	border-radius: 50px;
 	background-color: white;
-	border: 1px solid lightgray;
+	border: 1px solid gray;
 	top: 0;
   	left: 0;
   	bottom: 0;
@@ -196,4 +204,10 @@ input:checked + .switch{
 
 input:checked ~ .switch:before{
 	transform: translateX(30px);
+}
+
+@media screen and (max-width:700px){
+    main{
+        width:80vw;
+    }
 }
