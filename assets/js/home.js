@@ -15,7 +15,7 @@ function myFunction() {
   console.log(mode);
 
     if(toggle.checked != true){
-        console.log('LightMode');
+      //LightMode
         var main = document.getElementById('main');
         console.log(main);
         main.style.backgroundColor = 'rgba(255, 255, 255, 0.836)';
@@ -26,14 +26,13 @@ function myFunction() {
         }
         var categories = document.getElementsByClassName('category-container');
         for(each of categories){
-            // each.style.fontWeight = '600';
             each.style.color = color_pallete[each.innerText] ;
             each.style.backgroundColor = 'white';
             each.style.border = `2px solid ${each.style.color}`;
         }
       }
     else{
-      console.log('DarkMode');
+      //DarkMode
         var main = document.getElementById('main');
         console.log(main.style.backgroundColor);
         main.style.backgroundColor = '#1b1c23';
@@ -44,10 +43,9 @@ function myFunction() {
         }
         var categories = document.getElementsByClassName('category-container');
         for(each of categories){
-            // each.style.fontWeight = '600';
-            // console.log(each.innerText);
             each.style.backgroundColor = color_pallete[each.innerText] ;
             each.style.color = 'white';
+            each.style.border = `2px solid ${color_pallete[each.innerText]}`;
             
             
         }
@@ -73,49 +71,43 @@ window.addEventListener('load', function(){
   console.log('Passes through here');
   myFunction();
 });
-// addButton.addEventListener('click', myFunction);
-// deleteButton.addEventListener('click', myFunction);
+
 
 //To check any new task like add /delete and made ajax call accordingly
 let newTaskAddition=function()
 {
-  // console.log($("#add-form").serialize());
-
   $("button").click(function(e)
   {
     
     e.preventDefault();
     formData = $("#form").serialize();
     console.log($('#category').val());
+    //button value of the one which clicked is added to form data
     formData +='&action-button='+this.value;
     console.log(formData);
+    //Ajax call being made with all the form data
     $.ajax({
       type:"post",
       url:"/add-task",
       data:formData,
       success:function(data)
       {
-          console.log(data);
+        //Check the data returned and decide addition or deletion
           if(data.action=='add'){
             let newTask=data.data.newTask;
             let newTaskList=newTaskDom(newTask);
             console.log(newTaskList[0]);
 
-            // newTaskList[0].children[2].style.backgroundColor = color_pallete[$('#category').val()]
             $(".task-container").append(newTaskList);
             myFunction();
           }
           else if(data.action=='delete'){
-            // var parent = $('.task-container');
-            // console.log(parent[0]); 
             var cards = []; 
             for(eachId of data.data){
               let child = $(`#${eachId}`);
-              // console.log(child[0]);
-              // child[0].parentElement.removeChild(child[0]);
               cards.push(child[0]);
             }
-            // let cards = document.getElementsByClassName('Completed');
+            // To delete all the childs one by one with added animation and proper delay
             let parent = cards[0].parentElement;
             let length = cards.length;
             let count=length-1;
@@ -130,7 +122,7 @@ let newTaskAddition=function()
                 if(count<0){
                     clearInterval(intervalID);
                 }
-            }, 200);
+            }, 300);
           }else{
             console.log('error in data action');
           }
@@ -144,7 +136,7 @@ let newTaskAddition=function()
     })
   })
 }
-
+//one task card template 
 let newTaskDom=function(task)
 {
   return $(`<div class="task-card" id="${task._id}">

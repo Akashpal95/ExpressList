@@ -122,10 +122,12 @@ button i{
 .task-container{
     display:flex;
     flex-direction: column;
+    /* border-bottom:1px solid gray; */
+    border-top:1px solid gray;
 }
 .task-card{
     padding:12px;
-    border-top:1px solid gray;
+    /* border-top:1px solid gray; */
     display:flex;
     justify-content: space-around;
     align-items: center;
@@ -151,7 +153,7 @@ button i{
     /* background-color: #282b3d; */
     /* background-color: #29c7ac; */
     border-radius:5px;
-    transition: all 2s ease-in-out;
+    transition: background-color 2s ease-in-out;
     
 }
 .category-container p{
