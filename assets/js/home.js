@@ -75,10 +75,12 @@ window.addEventListener('load', function(){
 
 let newTaskAddition=function()
 {
-  console.log($("#add-form"));
-  $("#add-form").submit(function(e)
+  // console.log($("#add-form").serialize());
+  $("#add-button").click(function(e)
   {
+    console.log($("#add-form").serialize());
     e.preventDefault();
+    console.log($("#add-form").serialize());
     $.ajax({
       type:"post",
       url:"/add-task",

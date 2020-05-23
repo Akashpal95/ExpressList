@@ -5,6 +5,6 @@ router.use(express.urlencoded());
 console.log('Router Loaded');
 
 router.get('/', homeController.home);
-router.post('/add-task', homeController.createNewTask);
+router.post('/add-task', homeController.actionTask);
 
 module.exports = router;

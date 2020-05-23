@@ -27,8 +27,10 @@ module.exports.home = function(req, res){
 
 module.exports.actionTask = function(req, res){
     console.log('Inside createTask');
+    console.log(req.body);
+    return createTask(req, res);
     if(req.body['action-button'] === "add")
-        createTask(req, res);
+        console.log(createTask(req, res));
     else if(req.body['action-button'] ==="delete"){
         console.log(req.body);
         console.log('delete button pressed');
