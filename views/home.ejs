@@ -9,11 +9,12 @@
     <link rel="stylesheet" type="text/css" href="/css/home.css">
 </head>
 <body>
+
     <main id="main">
         <div class="header">
             <h1>TODO App</h1>
         </div>
-        <form action="/add-task" method="POST" id="add-form" >
+        <form action="/action-task" method="POST" id="form">
         <div class="add-task-container">
             <p>DESCRIPTION</p>
             <input id="task-description" type="text" name="task" placeholder="What do you need to do?" >    
@@ -34,21 +35,19 @@
             </div>
         </div>
         <div class="button-container">
-            <button id="add-button" name="action-button" type="button" value="add">
+            <button id="add-button" name="action-button" type="submit" value="add">
                     <i class="fas fa-plus"></i>
                     <p>ADD TASK</p>
             </button>
-            
-        </div>
-        </form>
-        <form action="/delete-tasks" method="get" id="delete-form">
-            <button id="delete-button" name="action-button" value="delete" type="submit">
+            <button id="delete-button" name="action-button" type="submit" value="delete">
                     <i class="fas fa-trash-alt"></i>
                     <p>DELETE TASKS</p>
             </button>
+        </div>
+    
         <div class="task-container" >
             <%for(let task of tasks_list){ %>
-            <div class="task-card">
+            <div class="task-card" id="<%= task._id%>">
                 <input type="checkbox" id="task_select" name="task-select" value="<%= task._id%>">
                 <div class="task-wrapper">
                     <p><%= task.task%></p>
@@ -57,7 +56,7 @@
                         <p><%= task.duedate%></p>
                     </div>
                 </div>
-                <div id ="category-cnceiner" class="category-container" style="background-color:<%= colors[task.category]%>;">
+                <div class="category-container" style="background-color:<%= colors[task.category]%>;">
                     <p><%=task.category%></p>
                 </div>
             </div>
@@ -79,7 +78,7 @@
         </div>
         <div class="footer">
                 <label for="btn1" class="switch-box">
-                        <input type="checkbox" id="btn1" name="btn1" >
+                        <input type="checkbox" id="btn1" name="btn1" checked>
                         <div class="switch">
                         </div>
                 </label>

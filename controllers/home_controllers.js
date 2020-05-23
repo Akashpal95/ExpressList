@@ -2,7 +2,7 @@ const db = require('../config/mongoose');
 const Tasks = require('../models/tasks');
 // var mode = 'light'
 const color_pallete = {
-    'work':'#424d8a',
+    'work':'rgb(96, 113, 208)',
     'school':'#13a978',
     'personal':'#fa744f',
     'others' :'#5a5c65'
@@ -28,19 +28,19 @@ module.exports.home = function(req, res){
 module.exports.actionTask = function(req, res){
     console.log('Inside createTask');
     console.log(req.body);
-    return createTask(req, res);
+    // return createTask(req, res);
     if(req.body['action-button'] === "add")
-        console.log(createTask(req, res));
+        return console.log(createTask(req, res));
     else if(req.body['action-button'] ==="delete"){
         console.log(req.body);
         console.log('delete button pressed');
         if('task-select' in req.body){
-            deleteTask(req, res);
+            return deleteTask(req, res);
            
         }
         else{
             console.log('No task selected for deletion');
-            res.redirect('back');
+            // res.redirect('back');
         }
     }
     
@@ -76,9 +76,11 @@ createTask = function(req, res){
         return res.json(200,
             {
                 data:{
-                    newTask:newTask
+                    newTask:newTask,
+                    colors:color_pallete
                 },
-                message:"New List Added!"
+                message:"New List Added!",
+                action:'add'
             })
        // return res.redirect('back');
     
@@ -86,31 +88,28 @@ createTask = function(req, res){
 }
 deleteTask = function(req, res){
     console.log('delete section reached');
+    var tasksIdList =[]
     if(typeof(req.body['task-select']) == 'string'){
-        Tasks.findByIdAndDelete(req.body['task-select'], function(err, task){
-            if(err){
-                console.log('error in deleting task from db');
-                return;
-            }
-            else
-                console.log('task deleted : ', task);
-        });
+        tasksIdList.push(req.body['task-select']);
     }
     else{
         for(let id of req.body['task-select']){
             console.log(id);
-            Tasks.findByIdAndDelete(id, function(err, task){
-                if(err){
-                    console.log('error in deleting task from db');
-                    return;
-                }
-                else
-                    console.log('task deleted : ', task);
-                // return res.redirect('back');
-            });
+            tasksIdList.push(id);
         }
-    }   
-    return res.redirect('back');
+    }  
+    Tasks.deleteMany({_id:tasksIdList}, function(err){
+        if(err){
+            console.log('error in deleting task from db');
+            return;
+        }
+    }) ;
+    console.log('***', tasksIdList);
+    return res.json(200,{
+        data:tasksIdList,
+        message:"List of task IDs deleted",
+        action:"delete"
+    });
 }
 
 module.exports.createNewTask=function(req,res)
