@@ -71,3 +71,48 @@ window.addEventListener('load', function(){
 });
 // addButton.addEventListener('click', myFunction);
 // deleteButton.addEventListener('click', myFunction);
+
+
+let newTaskAddition=function()
+{
+  console.log($("#add-form"));
+  $("#add-form").submit(function(e)
+  {
+    e.preventDefault();
+    $.ajax({
+      type:"post",
+      url:"/add-task",
+      data:$("#add-form").serialize(),
+      success:function(data)
+      {
+          let newTask=data.data.newTask;
+          let newTaskList=newTaskDom(newTask);
+          $(".task-container").append(newTaskList);
+      },
+      error:function(err)
+      {
+        console.log(err.responseText);
+      }
+    })
+  })
+}
+
+let newTaskDom=function(task)
+{
+  return $(`<div class="task-card">
+  <input type="checkbox" id="task_select" name="task-select" value="${task._id}">
+  <div class="task-wrapper">
+      <p>${ task.task}</p>
+      <div class="duedate-container">
+          <i class="fas fa-calendar-alt"></i>
+          <p>${task.duedate}</p>
+      </div>
+  </div>
+  <div id ="category-cnceiner" class="category-container">
+      <p>${task.category}</p>
+  </div>
+</div>`)
+}
+
+
+newTaskAddition()

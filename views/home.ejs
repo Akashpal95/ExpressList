@@ -13,7 +13,7 @@
         <div class="header">
             <h1>TODO App</h1>
         </div>
-        <form action="/action-task" method="POST">
+        <form action="/add-task" method="POST" id="add-form">
         <div class="add-task-container">
             <p>DESCRIPTION</p>
             <input id="task-description" type="text" name="task" placeholder="What do you need to do?" >    
@@ -38,12 +38,14 @@
                     <i class="fas fa-plus"></i>
                     <p>ADD TASK</p>
             </button>
-            <button id="delete-button" name="action-button" value="delete">
+            
+        </div>
+        </form>
+        <form action="/delete-tasks" method="get" id="delete-form">
+            <button id="delete-button" name="action-button" value="delete" type="submit">
                     <i class="fas fa-trash-alt"></i>
                     <p>DELETE TASKS</p>
             </button>
-        </div>
-    
         <div class="task-container" >
             <%for(let task of tasks_list){ %>
             <div class="task-card">
@@ -55,7 +57,7 @@
                         <p><%= task.duedate%></p>
                     </div>
                 </div>
-                <div id ="category-container" class="category-container" style="background-color:<%= colors[task.category]%>;">
+                <div id ="category-cnceiner" class="category-container" style="background-color:<%= colors[task.category]%>;">
                     <p><%=task.category%></p>
                 </div>
             </div>

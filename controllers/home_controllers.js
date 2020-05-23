@@ -44,6 +44,8 @@ module.exports.actionTask = function(req, res){
     
 }
 
+
+
 // module.exports.changeMode = function(req, res){
     
 //     mode = req.query['mode'];
@@ -69,7 +71,14 @@ createTask = function(req, res){
             return;
         }
         console.log('***', newTask);
-        return res.redirect('back');
+        return res.json(200,
+            {
+                data:{
+                    newTask:newTask
+                },
+                message:"New List Added!"
+            })
+       // return res.redirect('back');
     
     });
 }
@@ -100,4 +109,34 @@ deleteTask = function(req, res){
         }
     }   
     return res.redirect('back');
+}
+
+module.exports.createNewTask=function(req,res)
+{
+    var duedate = new Date(req.body.duedate);
+    var day = req.body.duedate.slice(-2);
+    var year = req.body.duedate.slice(0, 4);
+    var month = duedate.toLocaleString('default', { month: 'long' });
+    var duedate = day +" " + month + ", "+year;
+    console.log(duedate);
+    Tasks.create({
+        task:req.body.task,
+        category:req.body.category,
+        duedate:duedate
+        }, function(err, newTask){
+        if(err){
+            console.log(`error in creating a contact: ${err}`);
+            return;
+        }
+        console.log('***', newTask);
+        return res.json(200,
+            {
+                data:{
+                    newTask:newTask
+                },
+                message:"New List Added!"
+            })
+       // return res.redirect('back');
+    
+    });
 }
